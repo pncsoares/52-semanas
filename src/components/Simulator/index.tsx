@@ -53,7 +53,7 @@ export default function Simulator({ initialAmount, currentWeekNumber }: Simulato
               </tr>
             </thead>
             <tbody>
-              {weeks.slice(0, 26).map((week, index) => (
+              {weeks.map((week, index) => (
                 <tr
                   key={`tr_${index}`}
                   className={week.number <= currentWeekNumber ? 'text-green-500' : ''}
