@@ -10,12 +10,10 @@ export default function WeeksTable({ initialAmount, currentWeekNumber }: WeeksTa
   const [weeks, setWeeks] = useState<IWeek[]>([]);
 
   useEffect(() => {
-    console.log('[]', initialAmount, currentWeekNumber);
     assembleWeeks();
   }, []);
 
   useEffect(() => {
-    console.log('[initialAmount]', initialAmount, currentWeekNumber);
     assembleWeeks();
   }, [initialAmount]);
 
