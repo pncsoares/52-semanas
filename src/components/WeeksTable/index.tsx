@@ -1,12 +1,12 @@
 import { IWeek } from '@/interfaces/Week';
 import { useEffect, useState } from 'react';
 
-interface SimulatorProps {
+interface WeeksTableProps {
   initialAmount: number;
   currentWeekNumber: number;
 }
 
-export default function Simulator({ initialAmount, currentWeekNumber }: SimulatorProps) {
+export default function WeeksTable({ initialAmount, currentWeekNumber }: WeeksTableProps) {
   const [weeks, setWeeks] = useState<IWeek[]>([]);
 
   useEffect(() => {

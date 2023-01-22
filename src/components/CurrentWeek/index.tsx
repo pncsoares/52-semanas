@@ -3,8 +3,8 @@ import { getCurrentWeekNumber } from '@/services/date.services';
 import { useEffect, useState } from 'react';
 import HowToModal from '../HowToModal';
 import HowToModalButton from '../HowToModalButton';
-import SimulatorModal from '../SimulatorModal';
-import SimulatorModalButton from '../SimulatorModalButton';
+import WeeksTableModal from '../WeeksTableModal';
+import WeeksTableModalButton from '../WeeksTableModalButton';
 
 export default function CurrentWeek() {
   const [currentWeekNumber, setCurrentWeekNumber] = useState<number>(1);
@@ -63,8 +63,8 @@ export default function CurrentWeek() {
               </div>
             </div>
 
-            <SimulatorModalButton />
-            <SimulatorModal
+            <WeeksTableModalButton />
+            <WeeksTableModal
               initialAmount={initialAmount}
               currentWeekNumber={currentWeekNumber}
             />

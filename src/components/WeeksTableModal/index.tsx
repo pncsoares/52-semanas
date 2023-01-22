@@ -1,28 +1,31 @@
-import Simulator from '../Simulator';
+import WeeksTable from '../WeeksTable';
 
-interface SimulatorModalProps {
+interface WeeksTableModalProps {
   initialAmount: number;
   currentWeekNumber: number;
 }
 
-export default function SimulatorModal({ initialAmount, currentWeekNumber }: SimulatorModalProps) {
+export default function WeeksTableModal({
+  initialAmount,
+  currentWeekNumber,
+}: WeeksTableModalProps) {
   return (
     <>
       <input
         type="checkbox"
-        id="simulator"
+        id="weeksTable"
         className="modal-toggle"
       />
       <div className="modal">
         <div className="modal-box p-0 max-w-6xl">
-          <h3 className="font-bold text-2xl pt-5">Simulador</h3>
-          <Simulator
+          <h3 className="font-bold text-2xl pt-5">Lista de semanas</h3>
+          <WeeksTable
             initialAmount={initialAmount}
             currentWeekNumber={currentWeekNumber}
           />
           <div className="modal-action pr-5 pb-5">
             <label
-              htmlFor="simulator"
+              htmlFor="weeksTable"
               className="btn"
             >
               Fechar
