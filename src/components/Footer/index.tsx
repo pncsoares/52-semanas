@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <p className="font-bold text-md sm:text-lg">Feito por Pedro Soares</p>
           <p>A ajudar pessoas desde 1992</p>
-          <p>Copyright © {new Date().getFullYear()} - Todos os direitos reservados.</p>
+          <p>Copyright © {new Date().getFullYear()} - Todos os direitos reservados</p>
         </div>
         <div>
           <div className="grid grid-flow-col gap-4">
