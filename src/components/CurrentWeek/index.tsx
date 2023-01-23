@@ -26,7 +26,7 @@ export default function CurrentWeek() {
 
     const total = getTotalAmount(initialAmount);
     setTotalAmount(total);
-  }, [initialAmount]);
+  }, [currentWeekNumber, initialAmount]);
 
   return (
     <>

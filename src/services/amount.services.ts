@@ -2,7 +2,7 @@ export const getCurrentAmount = (week: number, initialAmount: number): number =>
   let amount: number = 0;
 
   for (let i = 1; i <= week; i++) {
-    amount += initialAmount;
+    amount += initialAmount * i;
   }
 
   return amount;
