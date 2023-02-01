@@ -5,7 +5,7 @@ export default function WeeksTableModalButton() {
         htmlFor="weeksTable"
         className="btn btn-accent"
       >
-        Ver lista de semanas
+        Lista de semanas
       </label>
     </>
   );

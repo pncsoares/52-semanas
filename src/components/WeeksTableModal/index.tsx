@@ -14,7 +14,7 @@ export default function WeeksTableModal({
       <input
         type="checkbox"
         id="weeksTable"
-        className="modal-toggle"
+        className="modal-toggle m-2"
       />
       <div className="modal">
         <div className="modal-box p-0 max-w-6xl">

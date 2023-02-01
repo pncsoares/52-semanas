@@ -28,49 +28,72 @@ export default function CurrentWeek() {
     setTotalAmount(total);
   }, [currentWeekNumber, initialAmount]);
 
+  const changeInitialAmount = (amount: number): void => {
+    setInitialAmount(amount);
+  };
+
   return (
     <>
-      <div className="flex flex-col flex-1 py-0 sm:py-10 p-5 sm:p-10 justify-center items-center content-center">
+      <div className="flex flex-col flex-1 justify-center items-center content-center">
         <div className="hero-content text-center flex">
-          <div className="max-w-md flex flex-col gap-4 sm:gap-10 items-center">
+          <div className="max-w-md flex flex-col gap-3 sm:gap-4 md:gap-5 items-center">
             <span className="text-4xl sm:text-5xl font-bold">Semana {currentWeekNumber}</span>
 
-            <div className="form-control">
-              <label className="input-group">
-                <span>Montante inicial</span>
-                <input
-                  type="number"
-                  min={0}
-                  placeholder="1"
-                  onChange={(e) => setInitialAmount(+e.target.value)}
-                  value={initialAmount}
-                  className="input input-bordered input-primary w-24 text-center"
-                  autoFocus
-                />
-                <span>€</span>
-              </label>
+            <span>Montante inicial</span>
+            <div className="btn-group">
+              <button
+                className={`btn ${initialAmount === 0.25 ? 'btn-active' : ''} `}
+                onClick={() => changeInitialAmount(0.25)}
+              >
+                0,25 €
+              </button>
+              <button
+                className={`btn ${initialAmount === 0.5 ? 'btn-active' : ''} `}
+                onClick={() => changeInitialAmount(0.5)}
+              >
+                0,50 €
+              </button>
+              <button
+                className={`btn ${initialAmount === 0.75 ? 'btn-active' : ''} `}
+                onClick={() => changeInitialAmount(0.75)}
+              >
+                0,75 €
+              </button>
+              <button
+                className={`btn ${initialAmount === 1 ? 'btn-active' : ''} `}
+                onClick={() => changeInitialAmount(1)}
+              >
+                1,00 €
+              </button>
             </div>
 
             <label>Montantes calculados 👇</label>
-            <div className="stats bg-primary text-primary-content">
-              <div className="stat">
-                <div className="stat-title">Até agora</div>
-                <div className="stat-value">{currentAmount} €</div>
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
+              <div className="stats bg-success text-success-content">
+                <div className="stat">
+                  <div className="stat-title">Até agora</div>
+                  <div className="stat-value">{currentAmount} €</div>
+                </div>
               </div>
-              <div className="stat">
-                <div className="stat-title">No final do ano</div>
-                <div className="stat-value">{totalAmount} €</div>
+
+              <div className="stats bg-primary text-primary-content">
+                <div className="stat">
+                  <div className="stat-title">No final do ano</div>
+                  <div className="stat-value">{totalAmount} €</div>
+                </div>
               </div>
             </div>
 
-            <WeeksTableModalButton />
-            <WeeksTableModal
-              initialAmount={initialAmount}
-              currentWeekNumber={currentWeekNumber}
-            />
+            <div className="flex flex-row justify-items-center gap-4">
+              <WeeksTableModalButton />
+              <WeeksTableModal
+                initialAmount={initialAmount}
+                currentWeekNumber={currentWeekNumber}
+              />
 
-            <HowToModalButton />
-            <HowToModal />
+              <HowToModalButton />
+              <HowToModal />
+            </div>
           </div>
         </div>
       </div>

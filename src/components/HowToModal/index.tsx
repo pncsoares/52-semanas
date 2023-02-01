@@ -6,7 +6,7 @@ export default function HowToModal() {
       <input
         type="checkbox"
         id="howTo"
-        className="modal-toggle"
+        className="modal-toggle m-2"
       />
       <div className="modal">
         <div className="modal-box text-left p-0 max-w-6xl">

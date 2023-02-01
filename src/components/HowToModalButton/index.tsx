@@ -5,7 +5,7 @@ export default function HowToModalButton() {
         htmlFor="howTo"
         className="btn btn-secondary"
       >
-        O que é o desafio das 52 semanas?
+        Sobre
       </label>
     </>
   );
