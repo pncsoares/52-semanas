@@ -2,11 +2,16 @@ import { IWeek } from '@/interfaces/Week';
 import { useEffect, useState } from 'react';
 
 interface WeeksTableProps {
+  strategy: 'fixed-amount' | 'dynamic-amount';
   initialAmount: number;
   currentWeekNumber: number;
 }
 
-export default function WeeksTable({ initialAmount, currentWeekNumber }: WeeksTableProps) {
+export default function WeeksTable({
+  strategy,
+  initialAmount,
+  currentWeekNumber,
+}: WeeksTableProps) {
   const [weeks, setWeeks] = useState<IWeek[]>([]);
 
   useEffect(() => {
@@ -15,26 +20,43 @@ export default function WeeksTable({ initialAmount, currentWeekNumber }: WeeksTa
 
   useEffect(() => {
     assembleWeeks();
-  }, [initialAmount]);
+  }, [strategy, initialAmount]);
 
   const assembleWeeks = (): void => {
     const assembledWeeks: IWeek[] = [];
     let totalAmount = 0;
 
-    for (let i = 1; i <= 52; i++) {
-      const weekAmount = initialAmount * i;
-      totalAmount += initialAmount * i;
+    if (strategy === 'fixed-amount') {
+      for (let i = 1; i <= 52; i++) {
+        const weekAmount = initialAmount;
+        totalAmount += initialAmount;
 
-      const weekInfo: IWeek = {
-        number: i,
-        weekAmount,
-        totalAmount,
-      };
+        const weekInfo: IWeek = {
+          number: i,
+          weekAmount,
+          totalAmount,
+        };
 
-      assembledWeeks.push(weekInfo);
+        assembledWeeks.push(weekInfo);
+      }
+
+      setWeeks(assembledWeeks);
+    } else if (strategy === 'dynamic-amount') {
+      for (let i = 1; i <= 52; i++) {
+        const weekAmount = initialAmount * i;
+        totalAmount += initialAmount * i;
+
+        const weekInfo: IWeek = {
+          number: i,
+          weekAmount,
+          totalAmount,
+        };
+
+        assembledWeeks.push(weekInfo);
+      }
+
+      setWeeks(assembledWeeks);
     }
-
-    setWeeks(assembledWeeks);
   };
 
   return (

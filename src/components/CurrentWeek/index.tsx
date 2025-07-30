@@ -7,6 +7,7 @@ import WeeksTableModal from '../WeeksTableModal';
 import WeeksTableModalButton from '../WeeksTableModalButton';
 
 export default function CurrentWeek() {
+  const [strategy, setStrategy] = useState<'fixed-amount' | 'dynamic-amount'>('dynamic-amount');
   const [currentWeekNumber, setCurrentWeekNumber] = useState<number>(1);
   const [initialAmount, setInitialAmount] = useState<number>(1);
   const [currentAmount, setCurrentAmount] = useState<number>(1);
@@ -16,60 +17,59 @@ export default function CurrentWeek() {
     const weekNumber = getCurrentWeekNumber();
     setCurrentWeekNumber(weekNumber);
 
-    const amount = getCurrentAmount(weekNumber, initialAmount);
+    const amount = getCurrentAmount(strategy, weekNumber, initialAmount);
     setCurrentAmount(amount);
   }, []);
 
   useEffect(() => {
-    const amount = getCurrentAmount(currentWeekNumber, initialAmount);
+    const amount = getCurrentAmount(strategy, currentWeekNumber, initialAmount);
     setCurrentAmount(amount);
 
-    const total = getTotalAmount(initialAmount);
+    const total = getTotalAmount(strategy, initialAmount);
     setTotalAmount(total);
-  }, [currentWeekNumber, initialAmount]);
-
-  const changeInitialAmount = (amount: number): void => {
-    setInitialAmount(amount);
-  };
+  }, [strategy, currentWeekNumber, initialAmount]);
 
   return (
     <>
-      <div className="flex flex-col flex-1 justify-evenly content-evenly items-center text-center">
+      <div className="flex flex-col flex-1 justify-evenly content-evenly items-center text-center px-4 sm:px-8">
         <span className="text-4xl sm:text-5xl font-bold">Semana {currentWeekNumber}</span>
 
-        <div className="flex flex-col gap-1">
-          <span>Montante inicial</span>
-          <div className="btn-group">
-            <button
-              className={`btn ${initialAmount === 0.25 ? 'btn-active' : ''} `}
-              onClick={() => changeInitialAmount(0.25)}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col gap-1">
+            <span className="text-start ml-1">Estratégia</span>
+            <select
+              className="select select-bordered w-full"
+              value={strategy}
+              onChange={(e) => setStrategy(e.target.value as 'fixed-amount' | 'dynamic-amount')}
             >
-              0,25 €
-            </button>
-            <button
-              className={`btn ${initialAmount === 0.5 ? 'btn-active' : ''} `}
-              onClick={() => changeInitialAmount(0.5)}
-            >
-              0,50 €
-            </button>
-            <button
-              className={`btn ${initialAmount === 0.75 ? 'btn-active' : ''} `}
-              onClick={() => changeInitialAmount(0.75)}
-            >
-              0,75 €
-            </button>
-            <button
-              className={`btn ${initialAmount === 1 ? 'btn-active' : ''} `}
-              onClick={() => changeInitialAmount(1)}
-            >
-              1,00 €
-            </button>
+              <option
+                value="dynamic-amount"
+                defaultChecked
+              >
+                Incrementar conforme o número da semana
+              </option>
+              <option value="fixed-amount">Valor fixo por semana</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span className="text-start ml-1">
+              {strategy === 'dynamic-amount' ? 'Montante inicial' : 'Montante fixo'}
+            </span>
+            <input
+              type="number"
+              className="input input-bordered"
+              value={initialAmount === 0 ? '' : initialAmount}
+              onChange={(e) => setInitialAmount(Number(e.target.value) || 0)}
+              min={0}
+              step={1}
+            />
           </div>
         </div>
 
         <div className="flex flex-col gap-1">
-          <label>Montantes calculados 👇</label>
-          <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
+          <label className="font-bold text-lg">Montantes calculados 👇</label>
+          <div className="flex flex-row gap-2 sm:gap-4">
             <div className="stats bg-success text-success-content">
               <div className="stat">
                 <div className="stat-title">Até agora</div>
@@ -89,6 +89,7 @@ export default function CurrentWeek() {
         <div className="flex flex-row justify-items-center gap-4">
           <WeeksTableModalButton />
           <WeeksTableModal
+            strategy={strategy}
             initialAmount={initialAmount}
             currentWeekNumber={currentWeekNumber}
           />

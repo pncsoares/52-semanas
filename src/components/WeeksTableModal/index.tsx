@@ -1,11 +1,13 @@
 import WeeksTable from '../WeeksTable';
 
 interface WeeksTableModalProps {
+  strategy: 'fixed-amount' | 'dynamic-amount';
   initialAmount: number;
   currentWeekNumber: number;
 }
 
 export default function WeeksTableModal({
+  strategy,
   initialAmount,
   currentWeekNumber,
 }: WeeksTableModalProps) {
@@ -20,6 +22,7 @@ export default function WeeksTableModal({
         <div className="modal-box p-0 max-w-6xl">
           <h3 className="font-bold text-2xl pt-5">Lista de semanas</h3>
           <WeeksTable
+            strategy={strategy}
             initialAmount={initialAmount}
             currentWeekNumber={currentWeekNumber}
           />
