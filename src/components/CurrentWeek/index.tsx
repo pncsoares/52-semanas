@@ -30,74 +30,68 @@ export default function CurrentWeek() {
   }, [strategy, currentWeekNumber, initialAmount]);
 
   return (
-    <>
-      <div className="flex flex-col flex-1 justify-evenly content-evenly items-center text-center px-4 sm:px-8">
-        <span className="text-4xl sm:text-5xl font-bold">Semana {currentWeekNumber}</span>
+    <div className="flex flex-col flex-1 justify-center items-center text-center px-4 sm:px-8 py-8 max-w-2xl mx-auto">
+      <span className="text-5xl sm:text-6xl font-extrabold mb-6 text-primary">
+        Semana {currentWeekNumber}
+      </span>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex flex-col gap-1">
-            <span className="text-start ml-1">Estratégia</span>
-            <select
-              className="select select-bordered w-full"
-              value={strategy}
-              onChange={(e) => setStrategy(e.target.value as 'fixed-amount' | 'dynamic-amount')}
-            >
-              <option
-                value="dynamic-amount"
-                defaultChecked
-              >
-                Incrementar conforme o número da semana
-              </option>
-              <option value="fixed-amount">Valor fixo por semana</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <span className="text-start ml-1">
-              {strategy === 'dynamic-amount' ? 'Montante inicial' : 'Montante fixo'}
-            </span>
-            <input
-              type="number"
-              className="input input-bordered"
-              value={initialAmount === 0 ? '' : initialAmount}
-              onChange={(e) => setInitialAmount(Number(e.target.value) || 0)}
-              min={0}
-              step={1}
-            />
-          </div>
+      <div className="flex flex-col sm:flex-row gap-6 w-full mb-8">
+        <div className="flex flex-col gap-2 flex-1">
+          <label className="text-start ml-1 font-semibold text-base-content">Estratégia</label>
+          <select
+            className="select select-bordered"
+            value={strategy}
+            onChange={(e) => setStrategy(e.target.value as 'fixed-amount' | 'dynamic-amount')}
+          >
+            <option value="dynamic-amount">Incrementar a cada semana</option>
+            <option value="fixed-amount">Valor fixo por semana</option>
+          </select>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="font-bold text-lg">Montantes calculados 👇</label>
-          <div className="flex flex-row gap-2 sm:gap-4">
-            <div className="stats bg-success text-success-content">
-              <div className="stat">
-                <div className="stat-title">Até agora</div>
-                <div className="stat-value">{currentAmount} €</div>
-              </div>
-            </div>
-
-            <div className="stats bg-primary text-primary-content">
-              <div className="stat">
-                <div className="stat-title">No final do ano</div>
-                <div className="stat-value">{totalAmount} €</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-items-center gap-4">
-          <WeeksTableModalButton />
-          <WeeksTableModal
-            strategy={strategy}
-            initialAmount={initialAmount}
-            currentWeekNumber={currentWeekNumber}
+        <div className="flex flex-col gap-2 flex-1">
+          <label className="text-start ml-1 font-semibold text-base-content">
+            {strategy === 'dynamic-amount' ? 'Montante inicial' : 'Montante fixo'}
+          </label>
+          <input
+            type="number"
+            className="input input-bordered w-full"
+            value={initialAmount === 0 ? '' : initialAmount}
+            onChange={(e) => setInitialAmount(Number(e.target.value) || 0)}
+            min={0}
+            step={1}
+            placeholder="Insira o valor"
           />
-
-          <HowToModalButton />
-          <HowToModal />
         </div>
       </div>
-    </>
+
+      <div className="flex flex-col gap-2 w-full mb-8">
+        <label className="font-bold text-xl text-base-content mb-2">Montantes calculados 👇</label>
+        <div className="flex flex-row gap-4 justify-center">
+          <div className="stats bg-success text-success-content shadow-md rounded-lg">
+            <div className="stat">
+              <div className="stat-title text-base">Até agora</div>
+              <div className="stat-value text-2xl">{currentAmount} €</div>
+            </div>
+          </div>
+          <div className="stats bg-primary text-primary-content shadow-md rounded-lg">
+            <div className="stat">
+              <div className="stat-title text-base">No final do ano</div>
+              <div className="stat-value text-2xl">{totalAmount} €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-row justify-center gap-6 mt-4">
+        <WeeksTableModalButton />
+        <WeeksTableModal
+          strategy={strategy}
+          initialAmount={initialAmount}
+          currentWeekNumber={currentWeekNumber}
+        />
+        <HowToModalButton />
+        <HowToModal />
+      </div>
+    </div>
   );
 }
