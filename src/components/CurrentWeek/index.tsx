@@ -54,6 +54,8 @@ export default function CurrentWeek() {
           </label>
           <input
             type="number"
+            inputMode="numeric"
+            pattern="[0-9]*"
             className="input input-bordered w-full"
             value={initialAmount === 0 ? '' : initialAmount}
             onChange={(e) => setInitialAmount(Number(e.target.value) || 0)}
